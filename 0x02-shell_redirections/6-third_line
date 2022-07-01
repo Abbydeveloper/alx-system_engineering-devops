@@ -1,2 +1,2 @@
 #!/bin/bash
-head -3 -n lacta | tail +3 -n lacta
+head -3 -n lacta | tail +3
