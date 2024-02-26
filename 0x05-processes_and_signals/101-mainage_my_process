@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Manage my process bash script
 
 if [ "$l" == "start" ]
 then
