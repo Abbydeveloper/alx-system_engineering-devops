@@ -1,4 +1,21 @@
 #!/usr/bin/env bash
+# Manage my process bash script
+# Requirements
+#	When passing the argument start:
+#	1. Start manage_myproocess
+#	2. Create a file containing its PID in /var/run/my_process.pid
+#	When passing the argument stop:
+#	1. Stop manage_my_process
+#	2. Delete the file /var/run/my_process.pid
+#	3. Display manage_my_process stopped
+#	When passing the argument restart:
+# 	1. Stop manage_my_process
+#	2. Delete the file /var/run/my_process.pid
+#	3. Start manage_my_process
+#	4. Create a file containing its PID in /var/run/my_process.pid
+#	5. Display manage_my_process restarted
+#	Display Usage: manage_my_process {start|stop|restart}
+
 
 if [ "$l" == "start" ]
 then
