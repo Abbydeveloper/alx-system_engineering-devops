@@ -2,7 +2,7 @@
 # display content of the current director
 
 list=$(ls)
-for list in $list;
+for l in $list;
 do
-	echo "$list" | cut -d '_' -f2
+	echo "$l" | cut -d '-' -f2
 done
