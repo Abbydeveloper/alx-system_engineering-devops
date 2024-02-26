@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Display lines containing the bash word to get the PID of my bash process
 
-pgrep grep bash -l
+pgrep bash -l
