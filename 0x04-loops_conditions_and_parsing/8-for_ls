@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# display content of the current director
+
+list=$(ls)
+for list in $list;
+do
+	echo "$list" | cut -d '_' -f2
+done
