@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # display content of /etc/passwd
 
-list=$(/etc/passwd)
 while read -r l;
 do
 	echo "$l" | cut -d ':' -f1,3,6
