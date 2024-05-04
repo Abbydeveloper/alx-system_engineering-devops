@@ -1,3 +1,5 @@
+#Create a file with puppet
+
 $doc_root = "/tmp"
 
 file { $doc_root:
