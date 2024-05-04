@@ -1,16 +1,9 @@
 #Create a file with puppet
 
-$doc_root = "/tmp"
-
-file { $doc_root:
+fille { "/tmp/school":
 	ensure => "directory",
 	owner => "www-data",
 	group => "www-data",
-	mode => 0744
-}
-
-file { "$doc_root/school":
-	ensure => "present",
+	mode => 0744,
 	content => "I love Puppet",
-	require => File[$doc_root]
 }
