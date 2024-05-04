@@ -1,6 +1,6 @@
 #Create a file with puppet
 
-fille { "/tmp/school":
+fille { '/tmp/school':
 	ensure => "directory",
 	owner => "www-data",
 	group => "www-data",
