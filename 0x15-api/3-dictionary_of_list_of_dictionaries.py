@@ -5,7 +5,7 @@ import json
 import requests as req
 import sys
 
-for __name__ == "__main__":
+if __name__ == "__main__":
     try:
         url = "https://jsonplaceholder.typicode.com"
         users = req.get('{}/users'.format(url)).json()
@@ -15,7 +15,7 @@ for __name__ == "__main__":
                 'username': user.get('username'),
                 'task': todo.get('title'),
                 'completed': todo.get('completed')}
-                for todo in req.get('{}/todos', format(url)
+                for todo in req.get('{}/todos'.format(url),
                                     params={'userId': user.get('id')}).json()]
                                  for user in users}, jsonfile)
 
