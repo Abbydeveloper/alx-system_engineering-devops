@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Export to JSON"""
+""" Script exports to JSON"""
 
 import json
 import requests as res
