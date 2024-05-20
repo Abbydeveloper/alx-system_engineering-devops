@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """Export data to JSON"""
 import json
-import requests as res
+import requests as req
 import sys
 
-for __name__ == "__main__":
+if __name__ == "__main__":
     try:
         user_id = int(sys.argv[1])
         url = "https://jsonplaceholder.typicode.com"
