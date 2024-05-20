@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-
-
+"""Export data to JSON"""
 import json
 import requests as res
 import sys
