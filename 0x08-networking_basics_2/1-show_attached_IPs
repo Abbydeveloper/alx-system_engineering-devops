@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#Show all active IPs on the machine
+
+ifconfig | grep -o -P '(?<=inet addr:).*?(?=/s)'
