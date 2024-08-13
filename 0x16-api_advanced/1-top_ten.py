@@ -6,24 +6,28 @@ import requests
 def top_ten(subreddit):
     """Get top ten host posts"""
 
-    url = "https://www.reddit.com/r/{:s}/hot.json".format(subreddit)
-    headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
-    AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
-            }
-    params = {"limit": 10}
+    if subreddit:
+        try:
+            url = "https://www.reddit.com/r/{:s}/hot.json".format(subreddit)
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; \
+                Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) \
+                Chrome/111.0.0.0 Safari/537.36"
+                      }
+            params = {'after': None, "limit": 10}
 
-    try:
-        response = requests.get(url, headers=headers, params=params,
+            response = requests.get(url, headers=headers, params=params,
                                 allow_redirects=False)
 
-        if response.status_code == 200:
-            data = response.json()['data']['children']
+            if 'data' in response and response['data']['children']:
+                posts = response.json()['data']['children']
 
-            for post in data:
-                print(post['data']['title'])
+                for post in posts:
+                    print(post['data']['title'])
 
-        else:
+            else:
+                print(None)
+        except Exception:
             print(None)
-    except (KeyError, ValueError):
+    else:
         print(None)
