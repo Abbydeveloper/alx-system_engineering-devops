@@ -6,35 +6,32 @@ import requests
 def top_ten(subreddit):
     """Get top ten host posts"""
 
-    if subreddit:
-        try:
-            limit = 10
-            url = "https://api.reddit.com/r/{:s}/hot.json".format(subreddit)
-            headers = {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; \
-                Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) \
-                Chrome/111.0.0.0 Safari/537.36"
+    try:
+        limit = 10
+        url = "https://api.reddit.com/r/{:s}/hot.json".format(subreddit)
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; \
+            Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) \
+            Chrome/111.0.0.0 Safari/537.36"
                       }
-            params = {'after': None, "limit": limit}
+        params = {'after': None, "limit": limit}
 
-            response = requests.get(url, headers=headers, params=params,
+        response = requests.get(url, headers=headers, params=params,
                                     allow_redirects=False)
-            response.raise_for_status()
-            response = response.json()
+        response.raise_for_status()
+        response = response.json()
 
-            if 'data' in response and response['data']['children']:
-                posts = response['data']['children']
+        if 'data' in response and response['data']['children']:
+            posts = response['data']['children']
 
-                count = limit
-                for post in posts:
-                    count = count - 1
-                    print(post['data']['title'], end="")
-                    if count > 0:
-                        print("")
+            count = limit
+            for post in posts:
+                count = count - 1
+                print(post['data']['title'], end="")
+                if count > 0:
+                    print("")
 
-            else:
-                print(None, end="")
-        except Exception:
+        else:
             print(None, end="")
-    else:
-        print(None, end="")
+    except requests.exceptions.RequestException:
+        return None
