@@ -10,8 +10,9 @@ def recurse(subreddit, hot_list=[], after=None):
     if subreddit:
         try:
             url = "https://api.reddit.com/r/{:s}/hot.json".format(subreddit)
-            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
-            AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'}
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; \
+                    Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) \
+                    Chrome/111.0.0.0 Safari/537.36'}
             params = {'after': after, 'limit': 50}
 
             response = requests.get(url, params=params, headers=headers,
