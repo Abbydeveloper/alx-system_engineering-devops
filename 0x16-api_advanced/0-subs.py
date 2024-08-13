@@ -6,15 +6,15 @@ import requests
 def number_of_subscribers(subreddit):
     """Get number of subscribers"""
 
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    headers = {"User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /CNwante)"}
+    url = "https://www.reddit.com/r/{:s}/about.json".format(subreddit)
+    headers = {"User-Agent": "linux:0x16.api.advanced:v1.0.0")
+    try:
+        response = requests.get(url, headers=headers, allow_redirects=False)
 
-    response = requests.get(url, headers=headers, allow_redirects=False)
-    if response.status_code == 200:
-        try:
+        if response.status_code == 200:
             data = response.json()
-            return data['data']['subscribers']
-        except (ValueError, KeyError):
-            return 0
-    else:
+            return data['data']["subscribers"]
+        
+        return 0
+    except (ValueError, KeyError):
         return 0
