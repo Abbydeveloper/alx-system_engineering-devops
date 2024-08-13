@@ -8,7 +8,7 @@ def top_ten(subreddit):
 
     if subreddit:
         try:
-            url = "https://www.reddit.com/r/{:s}/hot.json".format(subreddit)
+            url = "https://api.reddit.com/r/{:s}/hot.json".format(subreddit)
             headers = {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; \
                 Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) \
@@ -17,8 +17,9 @@ def top_ten(subreddit):
             params = {'after': None, "limit": 10}
 
             response = requests.get(url, headers=headers, params=params,
-                                allow_redirects=False)
-
+                                    allow_redirects=False)
+            response.raise_for_status()
+            response = response.json()
             if 'data' in response and response['data']['children']:
                 posts = response.json()['data']['children']
 
