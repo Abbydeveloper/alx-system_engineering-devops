@@ -14,13 +14,16 @@ def top_ten(subreddit):
             Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) \
             Chrome/111.0.0.0 Safari/537.36"
                       }
-        params = {'after': None, "limit": limit}
+        params = {'after': "", "limit": limit}
 
         response = requests.get(url, headers=headers, params=params,
-                                    allow_redirects=False)
-        response.raise_for_status()
+                                allow_redirects=False)
+        
+        if response.status_code != 200:
+            print(None)
+            return
         response = response.json()
-
+        print(response.json())
         if 'data' in response and response['data']['children']:
             posts = response['data']['children']
 
@@ -34,4 +37,5 @@ def top_ten(subreddit):
         else:
             print(None, end="")
     except requests.exceptions.RequestException:
-        return None
+        print(None)
+        return
