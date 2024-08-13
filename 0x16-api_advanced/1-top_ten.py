@@ -23,7 +23,7 @@ def top_ten(subreddit):
             print(None)
             return
         response = response.json()
-        print(response.json())
+
         if 'data' in response and response['data']['children']:
             posts = response['data']['children']
 
