@@ -1,61 +1,32 @@
 #!/usr/bin/python3
-
-"""
-Write a recursive function:
-    Quries the REDDIT API to get a list of titles of all
-    hot posts for a given subreddit.
-
-    Pagination handled using after param.
-
-    will handle cases where the subreddit is invalid or it has no results.
-
-    """
+"""Query the Reddit API and return a list containing the titles of all hot
+articles for a given subreddit.
+If not results are found, the function should return None"""
 import requests
 
 
 def recurse(subreddit, hot_list=[], after=None):
-    """
-    Function: recurse
+    """Define function recurse to get a list of hot titles recursively"""
 
-    Takes subreddit as main arg.
+    url = "https://api.reddit.com/r/{:s}/hot.json".format(subreddit)
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) \
+    AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'}
+    params = {'after': after, 'limit': 50}
 
-    optional arg: hot_list to store all titles of hot posts for the subreddit.
+    response = requests.get(url, params=params, headers=headers,
+                            allow_redirects=False)
+    response.raise_for_status()
+    response = response.json()
+    if 'data' in response and response['data']['children']:
+        posts = response['data']['children']
+        for post in posts:
+            post = post['data']['title']
+            hot_list.append(post)
 
-    optional arg: 'after' for handling pagination.
-                   starts as None and is updated as you fetch more pages
-
-    Returns: A list containing the titles of all hot posts,
-             or None if subreddit is invalid.
-    """
-
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    headers = {'User-Agent': 'MyRedditApp/0.1 by Forward-Age6992'}
-    params = {'after': after, 'limit': 25}
-
-    if subreddit:
-        try:
-            response = requests.get(url, params=params, headers=headers)
-
-            # will raise exception for bad HTTP status code.
-            response.raise_for_status()
-
-            response = response.json()
-
-            if 'data' in response and response['data']['children']:
-                posts_list = response['data']['children']
-                for post in posts_list:
-                    post = post['data']['title']
-                    hot_list.append(post)
-
-            # get the after token to use in subsequent query
-            after = response['data']['after']
-
-            if after:
-                return recurse(subreddit, hot_list, after)
-            else:
-                return hot_list
-
-        except requests.exceptions.RequestException:
-            return None
+        after = response['data']['after']
+        if after:
+            return recurse(subreddit, hot_list, after)
+        else:
+            return hot_list
     else:
         return None
