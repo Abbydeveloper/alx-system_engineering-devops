@@ -19,23 +19,21 @@ def top_ten(subreddit):
         response = requests.get(url, headers=headers, params=params,
                                 allow_redirects=False)
 
-        if response.status_code != 200:
+        if response.status_code == 200:
+            response = response.json()
+
+            if 'data' in response and response['data']['children']:
+                posts = response['data']['children']
+
+                count = limit
+                for post in posts:
+                    count = count - 1
+                    print(post['data']['title'], end="")
+                    if count > 0:
+                        print("")
+        else:
             print(None)
             return
-        response = response.json()
-
-        if 'data' in response and response['data']['children']:
-            posts = response['data']['children']
-
-            count = limit
-            for post in posts:
-                count = count - 1
-                print(post['data']['title'], end="")
-                if count > 0:
-                    print("")
-
-        else:
-            print(None, end="")
     except requests.exceptions.RequestException:
         print(None)
         return
